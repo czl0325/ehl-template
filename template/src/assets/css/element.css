@@ -1,0 +1,57 @@
+:root {
+  --el-color-primary: #079BFF;
+  --el-dialog-padding-primary: 10px;
+  --el-color-info: white;
+}
+
+.el-button.is-text {
+  padding: 0;
+}
+.el-dialog__header {
+  /*border-bottom: 1px solid #E6E6E6;*/
+  padding: 15px 20px;
+  box-sizing: border-box;
+  background: #1890FF;
+  color: white !important;
+  margin: 0;
+  line-height: normal;
+  text-align: left;
+}
+.el-dialog__header .el-dialog__title {
+  color: white;
+  font-weight: bold;
+}
+.el-dialog__body {
+  padding: 10px 20px;
+  overflow: auto;
+}
+.el-form-item__content {
+  flex-wrap: nowrap;
+}
+.el-form-item__content .el-select {
+  width: 100%;
+}
+.el-form-item__content .el-range-editor.el-input__inner{
+  width: 100%;
+}
+.el-dropdown {
+  vertical-align: middle;
+}
+.el-upload-list--picture-card .el-upload-list__item-thumbnail {
+  object-fit: cover;
+}
+.el-form-item__content .el-range-editor.el-input__inner {
+  height: 100%;
+}
+.el-range-editor.el-input__inner {
+  padding: 0 10px;
+}
+.anchorBL {
+  display: none;
+}
+.BMap_cpyCtrl {
+  display: none;
+}
+.no-footer {
+  padding: 0 !important;
+}

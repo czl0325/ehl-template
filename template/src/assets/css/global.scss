@@ -1,0 +1,259 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.panel {
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  border: none;
+}
+
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 0;
+  .panel-table {
+    flex: 1;
+    height: 0;
+  }
+}
+
+.dialog-container {
+  max-height: 90%;
+  overflow: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dialog-nopadding {
+  max-height: 90%;
+  overflow: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .el-dialog__body {
+    padding: 0 !important;
+  }
+  .el-dialog__footer {
+    padding: 0 !important;
+  }
+}
+
+.image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #f5f7fa;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+}
+.dot {
+  animation: dot 2s infinite steps(3, start);
+  overflow: hidden;
+}
+
+.flex-1 {
+  flex: 1;
+  height: 0;
+}
+
+.fill-parent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.e-tag {
+  background-color: #FF2F2F;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 11px;
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@mixin single-text {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.single-text {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+.rank-content {
+  width: 100%;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  .content-item {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    span:nth-child(1) {
+      color: #FF3332;
+      font-weight: bold;
+      min-width: 15px;
+      text-align: center;
+    }
+
+    span:nth-child(2) {
+      @include single-text;
+      color: #333;
+      width: 30%;
+      text-align: left;
+      margin: 0 5px;
+    }
+
+    span:nth-child(3) {
+      width: 60px;
+      text-align: left;
+    }
+
+    @mixin rank-item {
+      height: 14px;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .rank-item1 {
+      @include rank-item;
+      background: linear-gradient(to right, #1890FF, #33C8FF);
+    }
+
+    .rank-item2 {
+      @include rank-item;
+      background: linear-gradient(to right, #FA9A04, #FAC004);
+    }
+
+    .rank-item3 {
+      @include rank-item;
+      background: linear-gradient(to right, #FF2C2C, #FD4848);
+    }
+  }
+}
+
+// 菜单管理的右侧布局
+.actions {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f7f7f7;
+
+  .action-item {
+    display: inline-flex;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    img {
+      margin-right: 8px;
+    }
+  }
+}
+
+.max-line2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+a {
+  text-decoration: none;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.center-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// 大屏
+.big-screen-item-container {
+  width: 462px;
+  height: 360px;
+  background: #00000080;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+
+@mixin e-select($width: 100, $color: var(--el-color-primary), $fontSize: 14) {
+  :deep(.el-select) {
+    width: $width + px;
+  }
+  :deep(.el-input__wrapper) {
+    box-shadow: none !important;
+    background-color: transparent;
+    padding: 0 !important;
+  }
+  :deep(.el-input__wrapper input) {
+    text-align: right;
+    color: $color;
+    font-size: $fontSize + px;
+  }
+  :deep(.el-select .el-input__wrapper.is-focus) {
+    box-shadow: none !important;
+  }
+
+  :deep(.el-select .el-input__wrapper:focus) {
+    box-shadow: none !important;
+  }
+
+  :deep(.el-select:hover:not(.el-select--disabled) .el-input__inner) {
+    box-shadow: none !important;
+  }
+
+  :deep(.el-select .el-input .el-select__caret) {
+    color: $color;
+  }
+}

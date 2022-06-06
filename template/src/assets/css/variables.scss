@@ -1,0 +1,26 @@
+//sidebar
+$menuText: #A6B3CB;
+$menuActiveText: #FFFFFF;
+$subMenuActiveText: #FFFFFF; //https://github.com/ElemeFE/element/issues/12951
+$subMenuBackgroundActiveText: linear-gradient(90deg, rgba(21, 137, 245, 0.78) 0%, rgba(24, 144, 255, 0.3) 100%);
+
+$menuBg: #242832;
+$menuHover: #3C424E;
+
+$subMenuBg: #191E29;
+$subMenuHover: #3C424E;
+
+$sideBarWidth: 270px;
+
+// the :export directive is the magic sauce for webpack
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+  subMenuBackgroundActiveText: $subMenuBackgroundActiveText;
+}
