@@ -1,14 +1,14 @@
 :root {
-  --el-color-primary: #079BFF;
+  --el-color-primary: #1890FF;
   --el-dialog-padding-primary: 10px;
   --el-color-info: white;
+  --el-date-editor-width: 100% !important;
 }
 
 .el-button.is-text {
   padding: 0;
 }
 .el-dialog__header {
-  /*border-bottom: 1px solid #E6E6E6;*/
   padding: 15px 20px;
   box-sizing: border-box;
   background: #1890FF;
@@ -53,5 +53,8 @@
   display: none;
 }
 .no-footer {
+  padding: 0 !important;
+}
+.el-card__header {
   padding: 0 !important;
 }

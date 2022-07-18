@@ -1,22 +1,20 @@
+<script setup>
+
+</script>
+
 <template>
   <router-view />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'App'
-})
-</script>
-
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Alibaba PuHuiTi, sans-serif;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   overflow: hidden;
+  box-sizing: border-box;
 }
 </style>

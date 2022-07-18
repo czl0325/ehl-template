@@ -1,12 +1,26 @@
-import { createRouter, createWebHistory, RouterOptions } from 'vue-router'
+import { createRouter, createWebHashHistory, RouterOptions } from 'vue-router'
+import store from "@/store"
 
 export const constantRouterMap = [
   {
+    path: '/login',
+    name: 'Login',
+    hidden: true,
+    component: () => import("@/views/Login/index.vue")
+  },
+  {
     path: '/',
-    name: 'Layout',
-    redirect: "/dashboard",
     component: () => import("@/views/Layout/index.vue"),
+    hidden: true,
+    meta: {
+      title: "工作桌面",
+      activityPath: '/dashboard'
+    },
     children: [
+      {
+        path: "/",
+        redirect: "/dashboard"
+      },
       {
         path: "/dashboard",
         name: "Dashboard",
@@ -14,21 +28,18 @@ export const constantRouterMap = [
         meta: {
           title: "工作桌面"
         }
-      },
-      {
-        path: "/position",
-        name: "VehiclePosition",
-        component: () => import("@/views/VehiclePosition/index.vue"),
-        meta: {
-          title: "车辆实时定位"
-        }
       }
     ]
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
+    hidden: true
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: constantRouterMap,
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve, reject) => {
@@ -48,6 +59,25 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   next()
+//  if (to.name === "Login") {
+//    localStorage.removeItem("Authorization")
+//    next()
+//  } else {
+//    try {
+//      if (store.getters.user.uid) {
+//        next()
+//      } else {
+//        store.dispatch("user/getUserInfo").then(res => {
+//          next()
+//        }).catch(err => {
+//          console.log(err)
+//          next("/login")
+//        })
+//      }
+//    } catch (err) {
+//      next("/login")
+//    }
+//  }
 })
 
 export default router

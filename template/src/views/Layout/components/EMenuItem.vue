@@ -3,8 +3,8 @@
     <el-sub-menu v-if="onlyOneChild(item)>1" :index="item.path" popper-append-to-body >
       <template #title>
         <div class="parent-item d-flex flex-row align-items-center">
-          <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
-          <span class="first-menu">{{ item.meta.title }}</span>
+          <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
+          <span class="first-menu">{{ item.meta?.title }}</span>
         </div>
       </template>
       <e-menu-item v-for="child in item.children" :key="child.path" :item="child" />
@@ -12,15 +12,15 @@
     <app-link :to="item.children[0].path" v-else-if="onlyOneChild(item)===1">
       <el-menu-item :class="{'parent-active-color': generateParentBackground(item)}" class="parent-item">
         <template #title>
-          <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
-          <span class="first-menu">{{ item.meta.title }}</span>
+          <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
+          <span class="first-menu">{{ item.meta?.title }}</span>
         </template>
       </el-menu-item>
     </app-link>
     <el-menu-item v-else :index="item.path" :route="item" :class="{'parent-active-color': item.path===route.path}">
       <template #title>
-        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
-        <span class="second-menu">{{ item.meta.title }}</span>
+        <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
+        <span class="second-menu">{{ item.meta?.title }}</span>
       </template>
     </el-menu-item>
   </div>
@@ -58,7 +58,7 @@ export default defineComponent({
       } else {
         let num = 0
         item.children.forEach((it: any) => {
-          if (!it.hidden || (it.hidden === false)) {
+          if ((!it.hidden || (it.hidden === false)) && it.component !== null && it.component !== undefined) {
             num += 1
           }
         })
@@ -67,7 +67,7 @@ export default defineComponent({
     }
     const generateParentBackground = (item: any) => {
       const path = route.path.split("/").filter(p => p.length)[0]
-      return item.path.replace("/", "") === path
+      return (item.path.replace("/", "") === path || (item.meta && item.meta.activityPath && item.meta.activityPath.replace("/", "") === path))
     }
     return {
       route,

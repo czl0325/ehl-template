@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column h-100">
-    <el-image :src="require('../../../assets/images/image_logo.png')" style="margin: 25px auto;position: sticky"></el-image>
+    <img src="../../../assets/images/image_logo.png" style="margin: 25px auto;position: sticky" >
     <el-scrollbar noresize class="flex-1">
       <el-menu background-color="#00000000" text-color="#A6B3CB" active-text-color="#FFF" :default-active="activeMenu" unique-opened router>
         <e-menu-item v-for="route in routes" :item="route" :key="route" />
@@ -12,7 +12,6 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import EMenuItem from "@/views/Layout/components/EMenuItem.vue"
-import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { constantRouterMap } from "@/router"
 
@@ -22,17 +21,8 @@ export default defineComponent({
     EMenuItem
   },
   setup () {
-    const store = useStore()
     const route = useRoute()
-    const menus: any[] = []
-    constantRouterMap.forEach(item => {
-      if (item.name === "Layout") {
-        item.children.forEach(menu => {
-          menus.push(menu)
-        })
-      }
-    })
-    const routes = ref(menus)
+    const routes = ref(constantRouterMap)
     const activeMenu = computed(() => route.path)
     return {
       routes,
