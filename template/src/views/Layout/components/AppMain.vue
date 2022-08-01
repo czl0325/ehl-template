@@ -30,8 +30,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .app-main {
-  flex: 1;
+  height: calc(100vh - 100px);
   width: 100%;
-  overflow: auto;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 </style>

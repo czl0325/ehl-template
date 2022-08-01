@@ -3,24 +3,26 @@
     <el-sub-menu v-if="onlyOneChild(item)>1" :index="item.path" popper-append-to-body >
       <template #title>
         <div class="parent-item d-flex flex-row align-items-center">
-          <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
-          <span class="first-menu">{{ item.meta?.title }}</span>
+          <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
+          <span class="first-menu" :style="generateTitle(item)">{{ item.meta.title }}</span>
         </div>
       </template>
       <e-menu-item v-for="child in item.children" :key="child.path" :item="child" />
     </el-sub-menu>
     <app-link :to="item.children[0].path" v-else-if="onlyOneChild(item)===1">
-      <el-menu-item :class="{'parent-active-color': generateParentBackground(item)}" class="parent-item">
+      <el-menu-item :class="{'parent-active-color': generateParentBackground(item)}" class="only-one-item">
+<!--        <template #title>-->
+        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
         <template #title>
-          <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
-          <span class="first-menu">{{ item.meta?.title }}</span>
+          <span class="first-menu">{{ item.meta.title }}</span>
         </template>
+<!--        </template>-->
       </el-menu-item>
     </app-link>
-    <el-menu-item v-else :index="item.path" :route="item" :class="{'parent-active-color': item.path===route.path}">
+    <el-menu-item v-else :index="item.path" :route="item" :class="{'parent-active-color': generateChildBackground(item)}">
+        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
       <template #title>
-        <img v-if="item.meta?.icon" :src="generateIcon(item)" class="nav-icon">
-        <span class="second-menu">{{ item.meta?.title }}</span>
+        <span class="second-menu">{{ item.meta.title }}</span>
       </template>
     </el-menu-item>
   </div>
@@ -52,13 +54,25 @@ export default defineComponent({
         return item.meta.icon
       }
     }
+    const generateTitle = (item: any) => {
+      const path = route.path.split("/").filter(p => p.length)[0]
+      if (item.path.replace("/", "") === path) {
+        return {
+          color: "white"
+        }
+      } else {
+        return {
+          color: "#C6CFE1"
+        }
+      }
+    }
     const onlyOneChild = (item: any) => {
       if (!item.children) {
         return 0
       } else {
         let num = 0
         item.children.forEach((it: any) => {
-          if ((!it.hidden || (it.hidden === false)) && it.component !== null && it.component !== undefined) {
+          if (!it.hidden || (it.hidden === false)) {
             num += 1
           }
         })
@@ -67,13 +81,25 @@ export default defineComponent({
     }
     const generateParentBackground = (item: any) => {
       const path = route.path.split("/").filter(p => p.length)[0]
-      return (item.path.replace("/", "") === path || (item.meta && item.meta.activityPath && item.meta.activityPath.replace("/", "") === path))
+      return item.path.replace("/", "") === path
+    }
+    const generateChildBackground = (item: any) => {
+      if (item.path === route.path) {
+        return true
+      } else {
+        if (item.meta.childrenPath) {
+          return item.meta.childrenPath.indexOf(route.path) !== -1
+        }
+      }
+      return false
     }
     return {
       route,
       generateIcon,
+      generateTitle,
       onlyOneChild,
-      generateParentBackground
+      generateParentBackground,
+      generateChildBackground
     }
   }
 })
@@ -81,7 +107,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .first-menu {
-  color: #C6CFE1;
+  //color: #C6CFE1;
   font-size: 16px;
   margin-left: 10px;
 }
@@ -90,9 +116,20 @@ export default defineComponent({
   font-size: 14px;
 }
 
+.only-one-item {
+  background-color: #242832;
+  color: #C6CFE1;
+  height: 70px;
+  line-height: 70px;
+}
+
 .parent-item {
   height: 70px;
   line-height: 70px;
+}
+
+.el-sub-menu__title {
+  background-color: #242823;
 }
 
 :deep(.el-sub-menu__title) {
@@ -102,6 +139,7 @@ export default defineComponent({
 
 .parent-active-color {
   background: linear-gradient(90deg, rgba(21, 137, 245, 0.78) 0%, rgba(24, 144, 255, 0.78) 100%) !important;
+  color: white !important;
 }
 
 .nav-icon {
@@ -110,5 +148,13 @@ export default defineComponent({
 }
 </style>
 <style scoped>
+/*隐藏文字*/
+:deep(.el-menu--collapse .el-submenu__title span) {
+  display: none;
+}
 
+/*隐藏 > */
+:deep(.el-menu--collapse .el-submenu__title .el-submenu__icon-arrow) {
+  display: none;
+}
 </style>

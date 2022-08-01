@@ -7,11 +7,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { useSessionStorage } from '@vueuse/core'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from "vuex"
-import emitter from "@/utils/event"
 
 export default defineComponent({
   name: 'TabPane',
@@ -65,17 +64,17 @@ export default defineComponent({
         return
       }
       let isIn = false
-      tabs.value.forEach(tab => {
-        if (tab.path === route.path) {
-          currentTab.value = route.path
-          isIn = true
-          return true
-        } else if (route.meta.activityPath && tab.path === route.meta.activityPath) {
+      for (const tab of tabs.value) {
+        if (route.meta.activityPath && tab.path === route.meta.activityPath) {
           currentTab.value = route.meta.activityPath as string
           isIn = true
-          return true
+          break
+        } else if (tab.path === route.path) {
+          currentTab.value = route.path
+          isIn = true
+          break
         }
-      })
+      }
       if (!isIn) {
         tabs.value.push({
           path: route.path,
@@ -86,15 +85,6 @@ export default defineComponent({
       }
     }
     adjustRoute()
-    onMounted(() => {
-      // @ts-ignore
-      emitter.on("removeTab", function (name: string) {
-        tabs.value = tabs.value.filter(tab => tab.path !== name)
-      })
-    })
-    onUnmounted(() => {
-      emitter.off("removeTab")
-    })
     return {
       currentTab,
       tabs,
@@ -113,15 +103,15 @@ export default defineComponent({
   flex: 1;
   height: 0;
 }
-.tab-pane :deep(.el-tabs__header) {
+.tab-pane >>> .el-tabs__header {
   margin: 0;
   height: 100%;
 }
-.tab-pane :deep(.el-tabs__header .el-tabs__nav) {
+.tab-pane >>> .el-tabs__header .el-tabs__nav {
   border: none;
   display: flex;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item) {
+.tab-pane >>> .el-tabs--card>.el-tabs__header .el-tabs__item {
   color: white;
   border-left: none;
   width: 195px;
@@ -132,18 +122,18 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item:first-child) {
+.tab-pane >>> .el-tabs--card>.el-tabs__header .el-tabs__item:first-child {
   width: 120px;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item.is-active) {
+.tab-pane >>> .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
   color: #4291f6;
   background: url("../../../assets/images/img_tab_bg_hl.png") no-repeat center center;
   background-size: 100% 100%;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item.is-active:first-child) {
+.tab-pane >>> .el-tabs--card>.el-tabs__header .el-tabs__item.is-active:first-child {
   background: url("../../../assets/images/img_tab_bg_home.png") no-repeat center center;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item .is-icon-close) {
+.tab-pane >>> .el-tabs--card>.el-tabs__header .el-tabs__item .is-icon-close {
   position: absolute;
   top: 13px;
   right: 20px;
