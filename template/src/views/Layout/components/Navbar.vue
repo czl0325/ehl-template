@@ -60,6 +60,7 @@ import { defineComponent, computed, ref, unref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router"
 import { CaretBottom } from "@element-plus/icons-vue"
+import { DialogElement } from "ehl-ui"
 import { ElMessage, ElMessageBox, ClickOutside as vClickOutside } from "element-plus"
 import FoldBtn from "@/views/Layout/components/FoldBtn.vue"
 import TabPane from '@/views/Layout/components/TabPane.vue'

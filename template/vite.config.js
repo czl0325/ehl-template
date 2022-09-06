@@ -50,12 +50,11 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 3000,
+    port: 9537,
     open: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.9.231:8091',
-        // target: 'http://192.168.9.186:8091', // 许珠香
+        target: 'http://192.168.9.231:9527',
         rewrite: path => path.replace(/^\/api/, '')
       }
     }

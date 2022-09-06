@@ -58,26 +58,25 @@ const router = createRouter({
 } as RouterOptions)
 
 router.beforeEach((to, from, next) => {
-  next()
-//  if (to.name === "Login") {
-//    localStorage.removeItem("Authorization")
-//    next()
-//  } else {
-//    try {
-//      if (store.getters.user.uid) {
-//        next()
-//      } else {
-//        store.dispatch("user/getUserInfo").then(res => {
-//          next()
-//        }).catch(err => {
-//          console.log(err)
-//          next("/login")
-//        })
-//      }
-//    } catch (err) {
-//      next("/login")
-//    }
-//  }
+  if (to.name === "Login") {
+    localStorage.removeItem("Authorization")
+    next()
+  } else {
+    try {
+      if (store.getters.user.uid) {
+        next()
+      } else {
+        store.dispatch("user/getUserInfo").then(res => {
+          next()
+        }).catch(err => {
+          console.log(err)
+          next("/login")
+        })
+      }
+    } catch (err) {
+      next("/login")
+    }
+  }
 })
 
 export default router
