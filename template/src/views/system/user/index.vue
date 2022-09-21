@@ -69,7 +69,7 @@ export default defineComponent({
   },
   setup () {
     const searchValue = reactive({
-      keyword: ""
+      keywords: ""
     })
     const xTable1 = ref({} as VxeTableInstance)
     const tableData = ref<UserInfo[]>([])

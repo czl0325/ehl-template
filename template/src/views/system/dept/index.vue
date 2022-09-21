@@ -31,11 +31,6 @@
         <el-form-item label="部门排序" prop="level" style="width: 100%">
           <el-input-number :disabled="!isEdit" :min="1" :max="10000" v-model="currentRow.source.level" label="部门排序" style="width: 100%"/>
         </el-form-item>
-        <el-form-item label="部门位置" prop="address">
-          <el-select :disabled="!isEdit" v-model="currentRow.source.address" placeholder="请选择区域">
-            <el-option v-for="item in areas" :key="item.value" :label="item.label" :value="item.value"/>
-          </el-select>
-        </el-form-item>
         <el-form-item label="部门描述" prop="description">
           <el-input :disabled="!isEdit" :autosize="{ minRows: 3, maxRows: 10 }" v-model="currentRow.source.description" type="textarea" clearable/>
         </el-form-item>
@@ -68,15 +63,11 @@ export default defineComponent({
         treeData.value = res
       })
     }
-    const areas = ref<LabelInfo[]>([])
-    getRedisKeyValueAll("区域").then(res => {
-      areas.value = res
-    })
     const xForm = ref({} as FormInstance)
     const rules = reactive({
-      name: [{ required: true, message: '名称必填', trigger: 'change' }],
+      name: [{ required: true, message: '名称必填', trigger: 'blur' }],
       parentId: [{ required: true, message: '上级部门必选', trigger: 'change' }],
-      address: [{ required: true, message: '部门位置必选', trigger: 'change' }]
+      description: [{ required: true, message: '部门描述必填', trigger: 'blur' }]
     })
     const isEdit = ref(false)
     const currentRow = ref<DepartmentInfo>({
@@ -131,7 +122,6 @@ export default defineComponent({
       rules,
       isEdit,
       currentRow,
-      areas,
       handleNodeClick,
       saveAndFlush,
       deleteDepartment

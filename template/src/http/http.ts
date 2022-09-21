@@ -163,9 +163,13 @@ export class HttpService {
       params.pageSize = pagination.pageSize
       if (method === "POST") {
         this.post<PageModel<T>>(url, params).then(res => {
-          pagination.currentPage = res.pageNum
+          if (res.pageNum) {
+            pagination.currentPage = res.pageNum
+          }
+          if (res.pageSize) {
+            pagination.pageSize = res.pageSize
+          }
           pagination.total = res.total
-          pagination.pageSize = res.pageSize
           resolve(res)
         }).catch(err => {
           reject(err)
@@ -174,9 +178,13 @@ export class HttpService {
         })
       } else {
         this.get<PageModel<T>>(url, params).then(res => {
-          pagination.currentPage = res.pageNum
+          if (res.pageNum) {
+            pagination.currentPage = res.pageNum
+          }
+          if (res.pageSize) {
+            pagination.pageSize = res.pageSize
+          }
           pagination.total = res.total
-          pagination.pageSize = res.pageSize
           resolve(res)
         }).catch(err => {
           reject(err)

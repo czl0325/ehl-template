@@ -10,7 +10,6 @@ export function getDepartmentTree () {
 // 操作权限
 export function operateDepartment (source: DepartmentSourceInfo, type: RequestType = 'post') {
   source.translate = {
-    address: '部门位置',
     description: '部门描述',
     id: '部门ID',
     level: '部门排序',
