@@ -35,6 +35,7 @@ const actions: ActionTree<any, any> = {
   logout({ commit }) {
     commit('SET_USER', {})
     commit('SET_ROUTES', [])
+    localStorage.removeItem("Authorization")
     sessionStorage.removeItem('tabs')
   }
 }

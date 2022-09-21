@@ -14,6 +14,7 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import EMenuItem from "@/views/Layout/components/EMenuItem.vue"
+import { constantRouterMap } from "@/router"
 
 export default defineComponent({
   name: 'Sidebar',
@@ -29,7 +30,8 @@ export default defineComponent({
   setup (props) {
     const store = useStore()
     const route = useRoute()
-    const routes = computed(() => store.getters.routes)
+//    const routes = computed(() => store.getters.routes)
+    const routes = computed(() => constantRouterMap)
     const adjustActiveMenu = (arr: any[]) => {
       let path = ""
       for (let i = 0; i < arr.length; i++) {

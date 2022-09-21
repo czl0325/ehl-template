@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import 'element-plus/dist/index.css'
+import "element-plus/dist/index.css"
+import "ehl-ui/lib/ehl-ui.css"
 import '@/assets/font/font.css'
 import '@/assets/css/element.css'
 

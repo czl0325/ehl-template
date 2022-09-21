@@ -2,22 +2,22 @@
   <div class="navbar">
     <div class="top-view">
       <fold-btn class="me-2" :is-active="!isFold" :toggle-click="onFoldMenu"/>
-      <span class="navbar_title_style">厦门市车辆路面动态检测系统</span>
+      <span class="navbar_title_style">陈昭良定制后台管理系统</span>
       <div ref="newBtnRef" class="avatar-wrapper">
-        <img src="/src/assets/images/other/ic_news.png" alt="">
+        <img :src="getAssetsFile('other/ic_news.png')" alt="">
         <span>消息</span>
       </div>
       <el-popover ref="newPopoverRef" :virtual-ref="newBtnRef" trigger="click" virtual-triggering :width="250">
 
       </el-popover>
       <router-link to="/help" class="avatar-wrapper">
-        <img src="/src/assets/images/other/ic_help.png">
+        <img :src="getAssetsFile('other/ic_help.png')">
         <span>帮助</span>
       </router-link>
       <el-popover :width="280" placement="bottom" trigger="click" class="popup-user-container">
         <div class="popup-user">
           <div class="top-view">
-            <img class="avatar" src="/src/assets/images/other/img_avatar_man.png" style="">
+            <img class="avatar" :src="getAssetsFile('other/img_avatar_man.png')" style="">
             <div class="tmv">
               <div class="tmtv">
                 <span>{{ user.nickname }}</span>
@@ -27,24 +27,24 @@
             </div>
           </div>
           <div class="item" @click="showChangePassword=true">
-            <img src="/src/assets/images/other/ic_password.png" alt="">
+            <img :src="getAssetsFile('other/ic_password.png')" alt="">
             <span>修改密码</span>
           </div>
           <div class="item2">
             <div class="item" style="height: unset;border-bottom: none">
-              <img src="/src/assets/images/other/ic_version.png" alt="">
+              <img :src="getAssetsFile('other/ic_version.png')" alt="">
               <span>版本信息</span>
             </div>
             <span style="color: #999;font-size: 12px;margin-left: 40px">当前版本: v1.0.0</span>
           </div>
           <div class="item" @click="onLogout">
-            <img src="/src/assets/images/other/ic_logout.png" alt="">
+            <img :src="getAssetsFile('other/ic_logout.png')" alt="">
             <span>退出登录</span>
           </div>
         </div>
         <template #reference>
           <div class="avatar-wrapper">
-            <img style="width: 30px;height: 30px" src="/src/assets/images/other/img_avatar_man.png" alt="">
+            <img style="width: 30px;height: 30px" :src="getAssetsFile('other/img_avatar_man.png')" alt="">
             <span>{{ user.nickname }}</span>
             <el-icon color="#fff" class="ms-1" size="12"><CaretBottom /></el-icon>
           </div>
@@ -60,11 +60,12 @@ import { defineComponent, computed, ref, unref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router"
 import { CaretBottom } from "@element-plus/icons-vue"
+import { ElMessage, ElMessageBox } from "element-plus"
 import { DialogElement } from "ehl-ui"
-import { ElMessage, ElMessageBox, ClickOutside as vClickOutside } from "element-plus"
 import FoldBtn from "@/views/Layout/components/FoldBtn.vue"
 import TabPane from '@/views/Layout/components/TabPane.vue'
 import { UserInfo } from '@/models/user'
+import { getAssetsFile } from "@/utils/tools"
 
 export default defineComponent({
   name: 'Navbar',
@@ -120,7 +121,8 @@ export default defineComponent({
       onFoldMenu,
       onClickNewsOutside,
       onConfirmPassword,
-      onLogout
+      onLogout,
+      getAssetsFile
     }
   }
 })

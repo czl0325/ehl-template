@@ -63,3 +63,24 @@ export interface RoleInfo {
   overload?: string[];
   illegal?: string[];
 }
+
+export interface SystemLogInfo {
+  args?: string; // null
+  browser?: string; // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+  classPosition?: string; // null
+  code?: string; // null
+  cost?: string; // null
+  createTime?: string; // "2022-04-11T01:41:47.000+0000"
+  id?: number; // 296354
+  logContent?: string; // "【系统管理】数据查询：分页,获取用户详情"
+  logTime?: string; // "2022-04-11 09:41:47"
+  logType?: string; // "01_020_1"
+  logTypes?: string; // "数据查询"
+  method?: string; // null
+  msg?: string; // null
+  operationDeviceIp?: string; // "192.168.9.231"
+  updateTime?: string; // "2022-04-11T01:41:47.000+0000"
+  url?: string; // null
+  userId?: string; // null
+  userName?: string; // "root_admin"
+}

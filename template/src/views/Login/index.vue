@@ -45,6 +45,7 @@ export default defineComponent({
   name: 'Login',
   setup () {
     const router = useRouter()
+    const store = useStore()
     const currentTime = ref(`${formatDate(new Date(), 0)} ${formatWeekday(new Date())}`)
     const codeUrl = ref("")
     const loginUser = reactive({
@@ -55,7 +56,7 @@ export default defineComponent({
     })
     const loading = ref(false)
     onMounted(() => {
-      useStore().commit("cache/DEL_ALL_CACHED_VIEW")
+      store.commit("cache/DEL_ALL_CACHED_VIEW")
     })
     const randomCodeKey = () => {
       const s: any[] = []
@@ -72,7 +73,18 @@ export default defineComponent({
       codeUrl.value = urlJoin(API_URL, "/sys/auth/verify/code", loginUser.codeKey, { query: { r: Math.ceil(Math.random() * 100) } })
     }
     const onLogin = () => {
-      router.push("/")
+      if (loading.value) {
+        return
+      }
+      loading.value = true
+      loginIn(loginUser).then(res => {
+        localStorage.setItem("Authorization", `${res.prefix} ${res.value}`)
+        router.push("/")
+      }).catch(() => {
+        generateImageCode()
+      }).finally(() => {
+        loading.value = false
+      })
     }
     generateImageCode()
     return {
