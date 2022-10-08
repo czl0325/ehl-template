@@ -11,13 +11,13 @@
 
       </el-popover>
       <router-link to="/help" class="avatar-wrapper">
-        <img :src="getAssetsFile('other/ic_help.png')">
+        <img :src="getAssetsFile('other/ic_help.png')" alt="">
         <span>帮助</span>
       </router-link>
       <el-popover :width="280" placement="bottom" trigger="click" class="popup-user-container">
         <div class="popup-user">
           <div class="top-view">
-            <img class="avatar" :src="getAssetsFile('other/img_avatar_man.png')" style="">
+            <img class="avatar" :src="getAssetsFile('other/img_avatar_man.png')" alt="">
             <div class="tmv">
               <div class="tmtv">
                 <span>{{ user.nickname }}</span>
@@ -93,7 +93,6 @@ export default defineComponent({
       context.emit("onFold")
     }
     const onClickNewsOutside = () => {
-      console.log(unref(newPopoverRef).popperRef)
       unref(newPopoverRef).popperRef?.delayHide?.()
     }
     const onConfirmPassword = () => {
