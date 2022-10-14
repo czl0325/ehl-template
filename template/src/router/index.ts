@@ -78,9 +78,9 @@ export const constantRouterMap = [
         }
       },
       {
-        path: "/system/logs",
+        path: "/system/log",
         name: "SystemLogs",
-        component: () => import("@/views/system/logs/index.vue"),
+        component: () => import("@/views/system/log/index.vue"),
         meta: {
           resources: "pre_logs",
           title: "系统日志"

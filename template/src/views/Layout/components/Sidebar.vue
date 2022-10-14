@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column h-100">
-    <img :src="isCollapse?'/src/assets/images/image_logo_phone.png':'/src/assets/images/image_logo.png'" :class="isCollapse?'logo-fold':'logo-unfold'" alt=""/>
+    <img :src="isCollapse?getAssetsFile('image_logo_phone.png'):getAssetsFile('image_logo.png')" :class="isCollapse?'logo-fold':'logo-unfold'" alt=""/>
     <el-scrollbar noresize class="flex-1">
       <el-menu background-color="#00000000" text-color="#A6B3CB" active-text-color="#FFF" :default-active="activeMenu" unique-opened router :collapse="isCollapse" :collapse-transition="false">
         <e-menu-item v-for="route in routes" :item="route" :key="route" />
@@ -14,6 +14,7 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import EMenuItem from "@/views/Layout/components/EMenuItem.vue"
+import { getAssetsFile } from "@/utils/tools"
 import { constantRouterMap } from "@/router"
 
 export default defineComponent({
@@ -54,7 +55,8 @@ export default defineComponent({
     return {
       routes,
       activeMenu,
-      isCollapse
+      isCollapse,
+      getAssetsFile
     }
   }
 })

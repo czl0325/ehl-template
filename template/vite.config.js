@@ -7,6 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from "path"
 import fs from "fs"
+import { DEVELOP_URL } from "./src/config.ts"
 
 const optimizeDepsElementPlusIncludes = ["element-plus/es"]
 fs.readdirSync("node_modules/element-plus/es/components").map((dirname) => {
@@ -54,7 +55,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.9.231:9529',
+        target: DEVELOP_URL,
         rewrite: path => path.replace(/^\/api/, '')
       }
     }
