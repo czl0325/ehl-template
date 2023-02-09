@@ -100,12 +100,18 @@
   color: var(--el-text-color-secondary);
   font-size: 14px;
 }
+
 .dot {
   animation: dot 2s infinite steps(3, start);
   overflow: hidden;
 }
 
-.flex-1 {
+.flex-horizontal-1 {
+  flex: 1;
+  width: 0;
+}
+
+.flex-vertical-1 {
   flex: 1;
   height: 0;
 }
