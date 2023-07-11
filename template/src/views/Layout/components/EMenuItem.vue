@@ -1,26 +1,24 @@
 <template>
   <div v-if="!item.hidden">
-    <el-sub-menu v-if="onlyOneChild(item)>1" :index="item.path" popper-append-to-body >
+    <el-sub-menu v-if="onlyOneChild(item)>0" :index="item.path" popper-append-to-body >
       <template #title>
         <div class="parent-item d-flex flex-row align-items-center">
-          <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
+          <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon" alt="">
           <span class="first-menu" :style="generateTitle(item)">{{ item.meta.title }}</span>
         </div>
       </template>
       <e-menu-item v-for="child in item.children" :key="child.path" :item="child" />
     </el-sub-menu>
-    <app-link :to="item.children[0].path" v-else-if="onlyOneChild(item)===1">
+    <router-link :to="item.path" v-else-if="item.independent">
       <el-menu-item :class="{'parent-active-color': generateParentBackground(item)}" class="only-one-item">
-<!--        <template #title>-->
-        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
+        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon" alt="">
         <template #title>
           <span class="first-menu">{{ item.meta.title }}</span>
         </template>
-<!--        </template>-->
       </el-menu-item>
-    </app-link>
+    </router-link>
     <el-menu-item v-else :index="item.path" :route="item" :class="{'parent-active-color': generateChildBackground(item)}">
-        <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon">
+      <img v-if="item.meta.icon" :src="generateIcon(item)" class="nav-icon" alt="">
       <template #title>
         <span class="second-menu">{{ item.meta.title }}</span>
       </template>
