@@ -8,7 +8,7 @@
 import { defineComponent, PropType, ref } from 'vue'
 import { UserInfo } from "@/models/user"
 import { getUserRoleAll, updateUserRole } from "@/http/api/system"
-import { RoleInfo } from "@/models/system"
+import { IRoleInfo } from "@/models/system"
 import { ElMessage } from "element-plus"
 
 export default defineComponent({
@@ -20,7 +20,7 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const roles = ref<RoleInfo[]>([])
+    const roles = ref<IRoleInfo[]>([])
     const roleIds = ref<number[]>([])
     getUserRoleAll().then(res => {
       roles.value = res
@@ -30,6 +30,7 @@ export default defineComponent({
           props.user.roles.forEach(r => {
             if (r.rid === item.rid) {
               isIn = true
+              return true
             }
           })
           if (isIn) {
@@ -37,6 +38,7 @@ export default defineComponent({
           }
         }
       })
+      console.log(roleIds.value)
     })
     const confirm = () => {
       if (roleIds.value.length <= 0) {

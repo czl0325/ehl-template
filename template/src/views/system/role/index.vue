@@ -17,12 +17,10 @@
     </section>
     <section class="panel my-2 panel-content">
       <div class="panel-table">
-        <vxe-table :data="tableData" height="100%" :seq-config="{startIndex: ((pagination.currentPage-1)*pagination.pageSize) }" :loading="pagination.loading">
+        <vxe-table :data="tableData" height="100%" :seq-config="{startIndex: ((pagination.pageNumber-1)*pagination.pageCount) }" :loading="pagination.loading">
           <vxe-column field="rid" width="100" title="角色ID" align="center" />
           <vxe-column field="roleName" title="角色名称" align="center" />
           <vxe-column field="description" title="角色描述" align="center" />
-          <vxe-column field="createTime" title="添加时间" align="center" formatter="FormatDate"/>
-          <vxe-column field="lastUpdateTime" title="修改时间" align="center" formatter="FormatDate"/>
           <vxe-column title="操作" width="240" align="center" fixed="right">
             <template #default="{row}">
               <el-button type="primary" size="small" @click="currentRole=row;showRolePermission=true;">修改权限</el-button>
@@ -32,7 +30,7 @@
           </vxe-column>
         </vxe-table>
       </div>
-      <vxe-pager v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize" :total="pagination.total" @page-change="onGetRoleList(false)" />
+      <vxe-pager v-model:current-page="pagination.pageNumber" v-model:page-size="pagination.pageCount" :total="pagination.total" @page-change="onGetRoleList(false)" />
     </section>
     <e-dialog v-model="showRolePermission" width="40%" :title="currentRole.description" @ok="onConfirmPermission" >
       <role-permission-edit ref="xRolePermission" :role="currentRole" />
@@ -52,7 +50,7 @@ import RoleEdit from '@/views/system/role/src/RoleEdit.vue'
 import RolePermissionEdit from '@/views/system/role/src/RolePermissionEdit.vue'
 import { defaultPagination } from '@/http/http'
 import { getRoleList, operateRoleByModule } from '@/http/api/system'
-import { RoleInfo } from '@/models/system'
+import { IRoleInfo } from '@/models/system'
 
 export default defineComponent({
   name: 'SystemRole',
@@ -65,10 +63,10 @@ export default defineComponent({
     const searchValue = reactive({
       keyword: ""
     })
-    const tableData = ref<RoleInfo[]>([])
+    const tableData = ref<IRoleInfo[]>([])
     const pagination = reactive(cloneDeep(defaultPagination))
     const onGetRoleList = (refresh: boolean) => {
-      if (refresh) pagination.currentPage = 1
+      if (refresh) pagination.pageNumber = 1
       getRoleList(searchValue, pagination).then(res => {
         tableData.value = res.list
       })
@@ -76,7 +74,7 @@ export default defineComponent({
     onGetRoleList(true)
     const showRolePermission = ref(false)
     const showRoleEdit = ref(false)
-    const currentRole = ref<RoleInfo>({})
+    const currentRole = ref<IRoleInfo>({})
     const xRolePermission = ref({} as DialogElement)
     const xRoleEdit = ref({} as DialogElement)
     const onConfirmPermission = () => {
@@ -95,7 +93,7 @@ export default defineComponent({
         onGetRoleList(false)
       })
     }
-    const onDeleteRole = (role: RoleInfo) => {
+    const onDeleteRole = (role: IRoleInfo) => {
       ElMessageBox.confirm("确定要删除该角色？", "警告", {
         callback: (result: string) => {
           if (result === 'confirm') {

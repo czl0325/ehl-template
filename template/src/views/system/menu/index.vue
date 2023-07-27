@@ -28,8 +28,8 @@
         <el-form-item label="上级菜单" prop="parentId">
           <el-cascader v-model="currentRow.source.parentId" placeholder="请选择" style="width: 100%" :disabled="!isEdit" :show-all-levels="false" :options="menuTreeData" :props="{ label: 'title', value: 'id', emitPath: false, checkStrictly: true }">
             <template v-slot="{ node, data }">
-              <span>{{ data.title }}</span>
-              <span v-if="!node.isLeaf">({{ data.children.length }})</span>
+              <span></span>
+              <span v-if="!node.isLeaf">()</span>
             </template>
           </el-cascader>
         </el-form-item>
@@ -56,7 +56,7 @@
 import { computed, defineComponent, ref, reactive, watch } from 'vue'
 import { EPanelTitle } from "ehl-ui"
 import { getPermissionTree, operatePermission } from '@/http/api/system'
-import { MenuInfo } from '@/models/system'
+import { IMenuInfo } from '@/models/system'
 import { menuTypeOptions } from '@/models/common'
 import { ElMessage, ElMessageBox, UploadUserFile } from 'element-plus'
 
@@ -66,8 +66,8 @@ export default defineComponent({
     EPanelTitle
   },
   setup () {
-    const treeData = ref<MenuInfo[]>([])
-    const menuTreeData = ref<MenuInfo[]>([])
+    const treeData = ref<IMenuInfo[]>([])
+    const menuTreeData = ref<IMenuInfo[]>([])
     const reloadTree = () => {
       getPermissionTree(false).then(res => {
         treeData.value = res
@@ -96,14 +96,14 @@ export default defineComponent({
     })
     const isEdit = ref(false)
     const menuTypes = computed(() => menuTypeOptions)
-    const currentRow = ref<MenuInfo>({
+    const currentRow = ref<IMenuInfo>({
       source: {}
     })
     const iconList = ref<UploadUserFile[]>([])
     watch(() => iconList, (val) => {
       console.log(val)
     })
-    const handleNodeClick = (node: MenuInfo) => {
+    const handleNodeClick = (node: IMenuInfo) => {
       if (currentRow.value.id !== node.id) {
         isEdit.value = false
       }

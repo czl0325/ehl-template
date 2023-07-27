@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
     <router-view v-slot="{ Component }">
-      <keep-alive :include="cachedViews">
+      <keep-alive :include="cachedViews" :exclude="['DeviceAdd']">
         <component :is="Component"/>
       </keep-alive>
     </router-view>

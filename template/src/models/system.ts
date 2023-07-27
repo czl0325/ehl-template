@@ -1,11 +1,11 @@
-export interface LoginInfo {
+export interface ILoginInfo {
   expiration?: number; // 12000000
   header?: string; // "Authorization"
   prefix?: string; // "Bearer "
   value?: string; //
 }
 
-export interface MenuSourceInfo {
+export interface IMenuSourceInfo {
   createTime?: string; // "2022-02-08T16:18:04"
   description?: string; // "数据可视化看板"
   icon?: string; // "http://192.168.9.169:8001/tools/icon/nav_ic_Datavisualization_nor.png"
@@ -19,17 +19,17 @@ export interface MenuSourceInfo {
   type?: string; // "menu"
 }
 
-export interface MenuInfo {
+export interface IMenuInfo {
   address?: string; // null
-  children?: MenuInfo[]; // [{id: 112, title: "超限数据查询", address: null, parentId: 111,…},…]
+  children?: IMenuInfo[]; // [{id: 112, title: "超限数据查询", address: null, parentId: 111,…},…]
   id?: number|string; // 111
   level?: number; // 3
   parentId?: number; // 0
-  source?: MenuSourceInfo;
+  source?: IMenuSourceInfo;
   title?: string; // "超限数据管理"
 }
 
-export interface DepartmentSourceInfo {
+export interface IDepartmentSourceInfo {
   address?: string; // "全市"
   createTime?: string; // "2022-03-30T13:54:07"
   description?: string; // ""
@@ -41,30 +41,30 @@ export interface DepartmentSourceInfo {
   translate?: any; // null
 }
 
-export interface DepartmentInfo {
+export interface IDepartmentInfo {
   address?: string; // "全市"
-  children?: DepartmentInfo[]; // [{id: 41, title: "软件开发部", address: "海沧区", parentId: 40,…},…]
+  children?: IDepartmentInfo[]; // [{id: 41, title: "软件开发部", address: "海沧区", parentId: 40,…},…]
   id?: number; // 40
   level?: number; // 1
   parentId?: number; // 0
-  source?: DepartmentSourceInfo;
+  source?: IDepartmentSourceInfo;
   title?: string; // "福建易华录信息技术有限公司"
 }
 
-export interface RoleInfo {
+export interface IRoleInfo {
   createTime?: string; // "2018-10-23T12:32:13"
   description?: string; // "超级管理员"
   lastUpdateTime?: string; // "2022-04-01T16:36:37"
   rid?: number; // 1
   roleName?: string; // "ROLE_ROOT"
   translate?: any; // null
-  all?: MenuInfo[];
+  all?: IMenuInfo[];
   have?: number[];
   overload?: string[];
   illegal?: string[];
 }
 
-export interface SystemLogInfo {
+export interface ISystemLogInfo {
   args?: string; // null
   browser?: string; // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
   classPosition?: string; // null
@@ -83,4 +83,17 @@ export interface SystemLogInfo {
   url?: string; // null
   userId?: string; // null
   userName?: string; // "root_admin"
+}
+
+export interface IDictTreeInfo {
+  id?: number;
+  name?: string;
+  children?: IDictTreeInfo[];
+}
+
+export interface IDictInfo {
+  id?: number;
+  dictDataId?: string;
+  dictDataName?: string;
+  dictId?: number;
 }

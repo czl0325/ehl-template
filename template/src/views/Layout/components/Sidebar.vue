@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex flex-column h-100">
+  <div class="d-flex flex-column h-100" style="background-color: #242832">
     <img :src="isCollapse?getAssetsFile('image_logo_phone.png'):getAssetsFile('image_logo.png')" :class="isCollapse?'logo-fold':'logo-unfold'" alt=""/>
     <el-scrollbar noresize class="flex-1">
       <el-menu background-color="#00000000" text-color="#A6B3CB" active-text-color="#FFF" :default-active="activeMenu" unique-opened router :collapse="isCollapse" :collapse-transition="false">
-        <e-menu-item v-for="route in routes" :item="route" :key="route" />
+        <e-menu-item v-for="route in routes" :item="route" :key="<any>route" />
       </el-menu>
     </el-scrollbar>
   </div>

@@ -15,31 +15,43 @@ export type RequestType = "post" | "get" | "put" | "delete"
 
 export interface PageModel<T> {
   list: T[];
-  pageNum: number;
-  pageSize: number;
+  pageNumber: number;
+  pageCount: number;
   total: number;
   totalPage: number;
 }
 
 export interface PaginationInfo {
   loading: boolean;
-  currentPage: number;
+  pageNumber: number;
   total: number;
-  pageSize: number;
+  pageCount: number;
 }
 
 export const defaultPagination = {
   loading: false,
-  currentPage: 1,
+  pageNumber: 1,
   total: 0,
-  pageSize: 10
+  pageCount: 10
 }
 
 export class HttpService {
   myAxios: AxiosInstance
+  public baseUrl: string = API_URL
 
-  constructor (url: string) {
-    this.myAxios = new MyAxios(url).getInterceptors()
+  constructor () {
+    const xhr = new XMLHttpRequest()
+    xhr.open("get", "/config.json", false)
+    xhr.send(null)
+    try {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        const data = JSON.parse(xhr.responseText)
+        this.baseUrl = data["url"]
+      }
+    } catch (e) {
+
+    }
+    this.myAxios = new MyAxios(this.baseUrl).getInterceptors()
   }
 
   get<T> (url: string, params: object = {}) {
@@ -156,18 +168,18 @@ export class HttpService {
     })
   }
 
-  getList<T> (url: string, params: any = {}, pagination = defaultPagination, method = "POST") {
+  getList<T> (url: string, params: any = {}, pagination = defaultPagination, method = "GET") {
     return new Promise<PageModel<T>>((resolve, reject) => {
       pagination.loading = true
-      params.pageNum = pagination.currentPage
-      params.pageSize = pagination.pageSize
+      params.pageNumber = pagination.pageNumber
+      params.pageCount = pagination.pageCount
       if (method === "POST") {
         this.post<PageModel<T>>(url, params).then(res => {
-          if (res.pageNum) {
-            pagination.currentPage = res.pageNum
+          if (res.pageNumber) {
+            pagination.pageNumber = res.pageNumber
           }
-          if (res.pageSize) {
-            pagination.pageSize = res.pageSize
+          if (res.pageCount) {
+            pagination.pageCount = res.pageCount
           }
           pagination.total = res.total
           resolve(res)
@@ -178,11 +190,11 @@ export class HttpService {
         })
       } else {
         this.get<PageModel<T>>(url, params).then(res => {
-          if (res.pageNum) {
-            pagination.currentPage = res.pageNum
+          if (res.pageNumber) {
+            pagination.pageNumber = res.pageNumber
           }
-          if (res.pageSize) {
-            pagination.pageSize = res.pageSize
+          if (res.pageCount) {
+            pagination.pageCount = res.pageCount
           }
           pagination.total = res.total
           resolve(res)
@@ -201,7 +213,7 @@ export class HttpService {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
     files.forEach(file => {
-      formData.append('files', file.raw!)
+      formData.append('file', file.raw!)
     })
     Object.keys(params).forEach((key) => {
       // @ts-ignore
@@ -210,7 +222,7 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.myAxios.post(url, formData, configs).then((res: BaseResponseData<any> | any) => {
         if (res.status === 200) {
-          resolve(res.info)
+          resolve(res.data)
         } else {
           ElMessage.error(res.message)
           reject(new Error(res))
@@ -223,4 +235,4 @@ export class HttpService {
   }
 }
 
-export const http1 = new HttpService(API_URL)
+export const http1 = new HttpService()

@@ -99,7 +99,7 @@ export default defineComponent({
 .tab-pane {
   display: block;
   width: 100%;
-  overflow: auto;
+  overflow-y: hidden;
   flex: 1;
   height: 0;
 }
@@ -111,7 +111,10 @@ export default defineComponent({
   border: none;
   display: flex;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item) {
+.tab-pane :deep(.el-tabs__header .el-tabs__nav-wrap) {
+  margin-bottom: 0 !important;
+}
+.tab-pane :deep(.el-tabs--card .el-tabs__header .el-tabs__item) {
   color: white;
   border-left: none;
   width: 195px;
@@ -121,19 +124,20 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item:first-child) {
+.tab-pane :deep(.el-tabs--card .el-tabs__header .el-tabs__item:first-child) {
   width: 120px;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item.is-active) {
+.tab-pane :deep(.el-tabs--card .el-tabs__header .el-tabs__item.is-active) {
   color: #4291f6;
   background: url("../../../assets/images/img_tab_bg_hl.png") no-repeat center center;
   background-size: 100% 100%;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item.is-active:first-child) {
+.tab-pane :deep(.el-tabs--card .el-tabs__header .el-tabs__item.is-active:first-child) {
   background: url("../../../assets/images/img_tab_bg_home.png") no-repeat center center;
 }
-.tab-pane :deep(.el-tabs--card>.el-tabs__header .el-tabs__item .is-icon-close) {
+.tab-pane :deep(.el-tabs--card .el-tabs__header .el-tabs__item .is-icon-close) {
   position: absolute;
   top: 13px;
   right: 20px;

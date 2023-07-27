@@ -1,6 +1,6 @@
-import { RoleInfo } from "@/models/system"
+import { IRoleInfo } from "@/models/system"
 
-export interface LoginInfo {
+export interface ILoginInfo {
   expiration?: number; // 12000000
   header?: string; // "Authorization"
   prefix?: string; // "Bearer "
@@ -13,7 +13,7 @@ export interface ButtonInfo {
   title?: string; // "查看部门"
 }
 
-export interface MenuInfo {
+export interface IMenuInfo {
   children?: any; // null
   icon?: string; // "bigscreen"
   level?: number; // 1
@@ -30,9 +30,9 @@ export interface UserInfo {
   departmentName?: string; // null
   email?: string; // "root_admin@163.com"
   gender?: number; // 1
-  menus?: MenuInfo[];
+  menus?: IMenuInfo[];
   nickname?: string; // "超级管理员"
-  roles?: RoleInfo[]; // ["超级管理员"]
+  roles?: IRoleInfo[]; // ["超级管理员"]
   uid?: number; // 3
   username?: string; // "root_admin"
   password?: string;

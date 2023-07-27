@@ -8,31 +8,20 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, ref } from 'vue'
 import { useLocalStorage } from "@vueuse/core"
 import Sidebar from '@/views/Layout/components/Sidebar.vue'
 import Navbar from '@/views/Layout/components/Navbar.vue'
 import AppMain from '@/views/Layout/components/AppMain.vue'
 
-export default defineComponent({
-  name: 'Layout',
-  components: {
-    Sidebar,
-    Navbar,
-    AppMain
-  },
-  setup () {
-    const fold = useLocalStorage("sidebar-fold", false) // ref(((localStorage.getItem("sidebar-fold") || "0") === "1"))
-    const onFold = () => {
-      fold.value = !fold.value
-    }
-    return {
-      fold,
-      onFold
-    }
-  }
+defineOptions({
+  name: "Layout"
 })
+const fold = useLocalStorage("sidebar-fold", false)
+const onFold = () => {
+  fold.value = !fold.value
+}
 </script>
 
 <style lang="scss" scoped>

@@ -40,7 +40,7 @@ import { cloneDeep } from "lodash"
 import { UserInfo } from "@/models/user"
 import { userStatus, userGender } from "@/models/common"
 import { getDepartmentTree, operateUser } from "@/http/api/system"
-import { DepartmentInfo } from "@/models/system"
+import { IDepartmentInfo } from "@/models/system"
 import { FormInstance } from "element-plus/es"
 
 export default defineComponent({
@@ -112,7 +112,7 @@ export default defineComponent({
         }
       ]
     }
-    const deptList = ref<DepartmentInfo[]>([])
+    const deptList = ref<IDepartmentInfo[]>([])
     const newUser = ref<UserInfo>(cloneDeep(props.user))
     getDepartmentTree().then(res => {
       deptList.value = res

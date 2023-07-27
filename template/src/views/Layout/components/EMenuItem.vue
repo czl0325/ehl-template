@@ -29,6 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRoute } from "vue-router"
+import { getAssetsFile } from "@/utils/tools"
 import AppLink from "@/views/Layout/components/Link.vue"
 
 export default defineComponent({
@@ -45,12 +46,10 @@ export default defineComponent({
   setup(props) {
     const route = useRoute()
     const generateIcon = (item: any) => {
-      const path = route.path.split("/").filter(p => p.length)[0]
-      if (item.path.replace("/", "") === path) {
-        return item.meta.icon.replace("nor", "sel")
-      } else {
-        return item.meta.icon
+      if (item.meta.icon.endsWith(".png")) {
+        return getAssetsFile(item.meta.icon)
       }
+      return ""
     }
     const generateTitle = (item: any) => {
       const path = route.path.split("/").filter(p => p.length)[0]

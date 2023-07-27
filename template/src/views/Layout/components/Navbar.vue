@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="top-view">
       <fold-btn class="me-2" :is-active="!isFold" :toggle-click="onFoldMenu"/>
-      <span class="navbar_title_style">陈昭良定制后台管理系统</span>
+      <span class="navbar_title_style">智能机箱综合管理平台</span>
       <div ref="newBtnRef" class="avatar-wrapper">
         <img :src="getAssetsFile('other/ic_news.png')" alt="">
         <span>消息</span>
@@ -20,10 +20,10 @@
             <img class="avatar" :src="getAssetsFile('other/img_avatar_man.png')" alt="">
             <div class="tmv">
               <div class="tmtv">
-                <span>{{ user.nickname }}</span>
-                <span class="role">{{ user?.roles?.[0] }}</span>
+                <span></span>
+                <span class="role"></span>
               </div>
-              <span class="department">部门：{{ user.departmentName }}</span>
+              <span class="department">部门：</span>
             </div>
           </div>
           <div class="item" @click="showChangePassword=true">
@@ -45,7 +45,7 @@
         <template #reference>
           <div class="avatar-wrapper">
             <img style="width: 30px;height: 30px" :src="getAssetsFile('other/img_avatar_man.png')" alt="">
-            <span>{{ user.nickname }}</span>
+            <span></span>
             <el-icon color="#fff" class="ms-1" size="12"><CaretBottom /></el-icon>
           </div>
         </template>

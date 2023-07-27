@@ -5,14 +5,14 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 import { ElTree } from "element-plus"
-import { RoleInfo } from '@/models/system'
+import { IRoleInfo } from '@/models/system'
 import { getRoleById, updateRolePermission } from '@/http/api/system'
 
 export default defineComponent({
   name: 'RolePermissionEdit',
   props: {
     role: {
-      type: Object as PropType<RoleInfo>,
+      type: Object as PropType<IRoleInfo>,
       required: true
     }
   },
@@ -28,7 +28,7 @@ export default defineComponent({
         return checks.indexOf(item) < 0
       })
       const addNewArr = checks.filter(item => ((props.role.have?.indexOf(Number(item)) || -1) < 0)).map(item => Number(item))
-      return updateRolePermissionNew(checks as number[], props.role.rid as number, addNewArr, reduceNewArr)
+      return updateRolePermission(checks as number[], props.role.rid as number, addNewArr, reduceNewArr)
     }
     return {
       xTree,

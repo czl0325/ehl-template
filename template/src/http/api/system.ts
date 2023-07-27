@@ -1,14 +1,14 @@
 import { http1, PaginationInfo, RequestType } from "@/http/http"
-import { DepartmentInfo, DepartmentSourceInfo, MenuInfo, MenuSourceInfo, RoleInfo, SystemLogInfo } from "@/models/system"
+import { IDepartmentInfo, IDepartmentSourceInfo, IDictInfo, IMenuInfo, IMenuSourceInfo, IRoleInfo, ISystemLogInfo } from "@/models/system"
 import { UserInfo } from "@/models/user"
 
 // 获取部门树
 export function getDepartmentTree () {
-  return http1.get<DepartmentInfo[]>('/sys/department/tree')
+  return http1.get<IDepartmentInfo[]>('/sys/department/tree')
 }
 
 // 操作权限
-export function operateDepartment (source: DepartmentSourceInfo, type: RequestType = 'post') {
+export function operateDepartment (source: IDepartmentSourceInfo, type: RequestType = 'post') {
   source.translate = {
     description: '部门描述',
     id: '部门ID',
@@ -31,7 +31,7 @@ export function operateDepartment (source: DepartmentSourceInfo, type: RequestTy
 /**** 系统日志 *****/
 // 分页
 export function getSystemLogPage(form: any, pagination: PaginationInfo) {
-  return http1.getList<SystemLogInfo>("/data/log/logDataPage", form, pagination)
+  return http1.getList<ISystemLogInfo>("/data/log/page", form, pagination, "POST")
 }
 
 export function getAllParam() {
@@ -49,11 +49,11 @@ export function nowDelete() {
 /**** 权限操作 *****/
 // 获取权限树
 export function getPermissionTree (filter: boolean) {
-  return http1.get<MenuInfo[]>('/sys/permission/tree', { filter })
+  return http1.get<IMenuInfo[]>('/sys/permission/tree', { filter })
 }
 
 // 操作权限
-export function operatePermission (source: MenuSourceInfo, type: RequestType = 'post') {
+export function operatePermission (source: IMenuSourceInfo, type: RequestType = 'post') {
   source.translate = {
     description: '菜单描述',
     icon: '图标',
@@ -82,7 +82,7 @@ export function operatePermission (source: MenuSourceInfo, type: RequestType = '
 /**** 角色模块 *****/
 // 获取角色列表
 export function getRoleList (form: any, pagination: PaginationInfo) {
-  return http1.getList<RoleInfo>("/sys/role/page", form, pagination, "GET")
+  return http1.getList<IRoleInfo>("/sys/role/page", form, pagination, "GET")
 }
 
 // 根据ID 查询单个角色信息
@@ -109,7 +109,7 @@ export function getRoleByModule(rid?: number) {
   return http1.get<any>("/process/activiti/moduleRole", { rid })
 }
 
-export function operateRoleByModule(role: RoleInfo, type: RequestType = 'post') {
+export function operateRoleByModule(role: IRoleInfo, type: RequestType = 'post') {
   const data = {
     ...role,
     translate: {
@@ -135,9 +135,13 @@ export function getUserList(form: any, pagination: PaginationInfo) {
   return http1.getList<UserInfo>("/sys/user/info/page", form, pagination, "GET")
 }
 
+export function getUserAll() {
+  return http1.get<UserInfo[]>("/sys/user/all")
+}
+
 // 获取用户所有角色
 export function getUserRoleAll() {
-  return http1.get<RoleInfo[]>('/sys/role/all')
+  return http1.get<IRoleInfo[]>('/sys/role/all')
 }
 
 // 更新用户角色
@@ -184,4 +188,12 @@ export function operateUser(user: UserInfo, type: RequestType = 'post') {
     case "delete": return http1.delete(`/sys/user/${user.uid}`)
     default: return http1.post("/sys/user", data, true)
   }
+}
+
+export const getDeviceSettingAll = () => {
+  return http1.get<any>("/data/param/getAllParam", {})
+}
+
+export const updateDeviceSettingAll = (data: any) => {
+  return http1.post("/data/param/updateParamList", data)
 }

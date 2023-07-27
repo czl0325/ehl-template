@@ -9,16 +9,6 @@
     <el-form-item label="角色描述" required prop="description">
       <el-input v-model="newRole.description" clearable/>
     </el-form-item>
-    <el-form-item v-if="newRole.rid>0" label="超限模块">
-      <el-select v-model="newRole.overload" multiple placeholder="请选择">
-        <el-option v-for="option in roleOverloadOptions" :key="option.value" :label="option.label" :value="option.value" />
-      </el-select>
-    </el-form-item>
-    <el-form-item v-if="newRole.rid>0" label="违法模块">
-      <el-select v-model="newRole.illegal" multiple placeholder="请选择">
-        <el-option v-for="option in roleIllegalOptions" :key="option.value" :label="option.label" :value="option.value" />
-      </el-select>
-    </el-form-item>
   </el-form>
 </template>
 
@@ -26,15 +16,15 @@
 import { defineComponent, PropType, ref } from 'vue'
 import { FormInstance } from "element-plus"
 import { cloneDeep } from "lodash"
-import { RoleInfo } from '@/models/system'
+import { IRoleInfo } from '@/models/system'
 import { roleOverloadOptions, roleIllegalOptions } from "@/models/common"
-import { getRoleByModule, operateRoleByModule } from "@/http/api/system"
+import { operateRoleByModule } from "@/http/api/system"
 
 export default defineComponent({
   name: 'RoleEdit',
   props: {
     role: {
-      type: Object as PropType<RoleInfo>,
+      type: Object as PropType<IRoleInfo>,
       required: true
     }
   },
@@ -65,11 +55,7 @@ export default defineComponent({
         trigger: 'blur'
       }]
     }
-    const newRole = ref<RoleInfo>(cloneDeep(props.role))
-    getRoleByModule(newRole.value.rid).then(res => {
-      newRole.value.overload = res.overload
-      newRole.value.illegal = res.illegal
-    })
+    const newRole = ref<IRoleInfo>(cloneDeep(props.role))
     const confirm = () => {
       return new Promise((resolve, reject) => {
         xForm.value?.validate((valid) => {

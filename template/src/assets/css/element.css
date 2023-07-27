@@ -21,6 +21,12 @@
   color: white;
   font-weight: bold;
 }
+.el-dialog__headerbtn {
+  top: 0 !important;
+}
+.el-dialog__headerbtn .el-icon {
+  color: white !important;
+}
 .el-dialog__body {
   padding: 10px 20px;
   overflow: auto;
@@ -57,4 +63,8 @@
 }
 .el-card__header {
   padding: 0 !important;
+}
+.el-select__tags {
+  white-space: nowrap !important;
+  overflow: hidden !important;
 }
